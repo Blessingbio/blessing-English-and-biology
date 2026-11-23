@@ -1,6 +1,6 @@
 {
-  "name": "基础词汇背诵表 · 图片点读",
-  "short_name": "基础词汇图片点读",
+  "name": "基础词汇背诵表 · 高清图片点读",
+  "short_name": "基础词汇点读",
   "description": "轻点图片页面上的英文单词即可朗读",
   "start_url": "./index.html",
   "scope": "./",

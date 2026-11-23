@@ -1,7 +1,12 @@
+const READER = window.READER_CONFIG || {
+  pageCount: 123,
+  startPage: 2,
+  storageKey: "basic-image-reader"
+};
 const PAGE_RATIO = 595.32 / 841.92;
 const state = {
-  pageCount: 123,
-  pageNumber: 2,
+  pageCount: READER.pageCount,
+  pageNumber: READER.startPage,
   zoom: 1,
   voices: [],
   voice: null,
@@ -112,7 +117,7 @@ function populateVoices() {
 
   let saved = "";
   try {
-    saved = localStorage.getItem("image-reader-voice") || "";
+    saved = localStorage.getItem(`${READER.storageKey}-voice`) || "";
   } catch (_) {}
 
   state.voices.forEach((voice) => {
@@ -212,7 +217,7 @@ async function showPage(pageNumber) {
     updateStatus();
 
     try {
-      localStorage.setItem("image-reader-page", String(next));
+      localStorage.setItem(`${READER.storageKey}-page`, String(next));
     } catch (_) {}
   } catch (error) {
     console.error(error);
@@ -266,14 +271,14 @@ document.querySelectorAll("[data-close-settings]").forEach((element) => {
 dom.voiceSelect.addEventListener("change", () => {
   state.voice = state.voices.find((voice) => voice.name === dom.voiceSelect.value) || null;
   try {
-    localStorage.setItem("image-reader-voice", dom.voiceSelect.value);
+    localStorage.setItem(`${READER.storageKey}-voice`, dom.voiceSelect.value);
   } catch (_) {}
 });
 dom.rateRange.addEventListener("input", () => {
   state.rate = Number(dom.rateRange.value);
   dom.rateValue.textContent = `${state.rate.toFixed(2)}×`;
   try {
-    localStorage.setItem("image-reader-rate", String(state.rate));
+    localStorage.setItem(`${READER.storageKey}-rate`, String(state.rate));
   } catch (_) {}
 });
 
@@ -319,9 +324,11 @@ window.visualViewport?.addEventListener?.("resize", fitPage);
 window.speechSynthesis?.addEventListener?.("voiceschanged", populateVoices);
 
 try {
-  const savedPage = Number(localStorage.getItem("image-reader-page") || "2");
-  if (savedPage >= 1 && savedPage <= 123) state.pageNumber = savedPage;
-  const savedRate = Number(localStorage.getItem("image-reader-rate") || "0.88");
+  const savedPage = Number(
+    localStorage.getItem(`${READER.storageKey}-page`) || String(READER.startPage)
+  );
+  if (savedPage >= 1 && savedPage <= READER.pageCount) state.pageNumber = savedPage;
+  const savedRate = Number(localStorage.getItem(`${READER.storageKey}-rate`) || "0.88");
   state.rate = Math.max(0.6, Math.min(1.1, savedRate));
   dom.rateRange.value = String(state.rate);
   dom.rateValue.textContent = `${state.rate.toFixed(2)}×`;

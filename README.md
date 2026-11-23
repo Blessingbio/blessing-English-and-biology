@@ -7,6 +7,5 @@ English and biology learning materials.
 - Basic vocabulary
 - Core vocabulary
 - High-frequency vocabulary
-- Image-based basic vocabulary test
 
 The site is published with GitHub Pages.

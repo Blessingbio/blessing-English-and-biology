@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#65aeb0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="高频词汇点读">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+    <title>高频词汇 · 图片点读</title>
+  </head>
+  <body>
+    <main id="app" class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">Aa</span>
+          <span class="brand-copy">
+            <strong>高频词汇</strong>
+            <small>高清图片页 · 轻点英文单词朗读</small>
+          </span>
+        </div>
+        <div class="page-chip">
+          <span>第</span>
+          <input id="pageInput" type="number" min="1" value="2" inputmode="numeric" aria-label="输入页码">
+          <span id="pageTotal">/ 69 页</span>
+        </div>
+        <div class="top-actions">
+          <button id="zoomOutButton" class="icon-button" type="button" aria-label="缩小">−</button>
+          <button id="zoomInButton" class="icon-button" type="button" aria-label="放大">＋</button>
+          <button id="settingsButton" class="icon-button" type="button" aria-label="声音设置">声</button>
+        </div>
+      </header>
+
+      <section id="viewer" class="viewer" aria-label="词汇页面">
+        <div id="pageScroll" class="page-scroll">
+          <div id="pageFrame" class="page-frame">
+            <img id="pageImage" class="page-image" alt="">
+            <div id="wordLayer" class="word-layer"></div>
+          </div>
+        </div>
+
+        <div id="loading" class="loading">
+          <div class="loading-mark">Aa</div>
+          <strong id="loadingTitle">正在载入第 2 页</strong>
+          <span id="loadingSubtitle">图片加载完成后即可点读</span>
+          <div class="loading-track"><i id="loadingBar"></i></div>
+        </div>
+
+        <div id="errorBox" class="error-box" hidden>
+          <strong>页面没有载入</strong>
+          <span id="errorText">请检查网络后重新打开。</span>
+        </div>
+
+        <div id="hint" class="tap-hint">轻点第一列英文单词即可朗读</div>
+        <button id="showControlsButton" class="show-controls" type="button" aria-label="显示底部控制栏">⌃</button>
+      </section>
+
+      <footer id="bottomBar" class="bottom-bar">
+        <button id="previousButton" class="page-button" type="button">← 上一页</button>
+        <div class="page-status">
+          <div class="progress-track"><i id="progressBar"></i></div>
+          <span id="pageStatusText">第 2 页 / 共 69 页</span>
+        </div>
+        <button id="nextButton" class="page-button" type="button">下一页 →</button>
+      </footer>
+
+      <section id="settingsSheet" class="settings-sheet" aria-hidden="true">
+        <div class="sheet-backdrop" data-close-settings></div>
+        <div class="sheet-card">
+          <div class="sheet-heading">
+            <div>
+              <p>READING VOICE</p>
+              <h2>点读声音</h2>
+            </div>
+            <button class="close-settings" type="button" data-close-settings aria-label="关闭">×</button>
+          </div>
+          <label class="setting-row" for="voiceSelect">
+            <span>英文声音</span>
+            <select id="voiceSelect"></select>
+          </label>
+          <label class="setting-row" for="rateRange">
+            <span>朗读速度 <b id="rateValue">0.88×</b></span>
+            <input id="rateRange" type="range" min="0.6" max="1.1" step="0.02" value="0.88">
+          </label>
+          <div class="setting-note">
+            优先选择 Siri、增强版或高质量英文声音。iPad 未向 Safari 开放 Siri 时，请下载增强版英文声音。
+          </div>
+        </div>
+      </section>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </main>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
