@@ -396,6 +396,8 @@ async function loadPdf() {
     : { url: PDF_URL };
   const loadingTask = pdfjsLib.getDocument({
     ...source,
+    disableRange: true,
+    disableStream: true,
     cMapUrl: "./vendor/cmaps/",
     cMapPacked: true,
     standardFontDataUrl: "./vendor/standard_fonts/"
