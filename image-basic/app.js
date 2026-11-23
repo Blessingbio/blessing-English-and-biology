@@ -3,7 +3,6 @@ const state = {
   pageCount: 123,
   pageNumber: 2,
   zoom: 1,
-  map: null,
   voices: [],
   voice: null,
   rate: 0.88,
@@ -184,15 +183,12 @@ async function showPage(pageNumber) {
   dom.loadingBar.style.width = "18%";
 
   try {
-    if (!state.map) {
-      const response = await fetch("./word-map.json", { cache: "force-cache" });
-      if (!response.ok) throw new Error(`词汇索引 HTTP ${response.status}`);
-      state.map = await response.json();
-      state.pageCount = state.map.pages.length;
-      dom.pageTotal.textContent = `/ ${state.pageCount} 页`;
-    }
-
-    const pageData = state.map.pages[next - 1];
+    const mapResponse = await fetch(
+      `./maps/${String(next).padStart(3, "0")}.json`,
+      { cache: "force-cache" }
+    );
+    if (!mapResponse.ok) throw new Error(`词汇索引 HTTP ${mapResponse.status}`);
+    const pageData = await mapResponse.json();
     const imageUrl = pageData.file;
     await new Promise((resolve, reject) => {
       const image = new Image();
