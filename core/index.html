@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#f1b93b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="核心词汇点读">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <link rel="stylesheet" href="styles.css">
+    <title>核心词汇背诵表 · 单词点读机</title>
+  </head>
+  <body>
+    <main id="app" class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">Aa</span>
+          <span class="brand-copy">
+            <strong>核心词汇</strong>
+            <small>点击英文单词朗读</small>
+          </span>
+        </div>
+        <div class="page-chip">
+          <span>第</span>
+          <input id="pageInput" type="number" min="1" value="1" inputmode="numeric" aria-label="输入页码">
+          <span id="pageTotal">/ 123 页</span>
+        </div>
+        <div class="top-actions">
+          <button id="zoomOutButton" class="icon-button" type="button" aria-label="缩小页面">−</button>
+          <button id="zoomInButton" class="icon-button" type="button" aria-label="放大页面">＋</button>
+          <button id="settingsButton" class="icon-button" type="button" aria-label="声音设置">声</button>
+        </div>
+      </header>
+
+      <section id="viewer" class="viewer" aria-label="PDF 单词点读区域">
+        <div id="pageScroll" class="page-scroll">
+          <div id="pageShell" class="page-shell">
+            <canvas id="pdfCanvas" class="pdf-canvas"></canvas>
+            <div id="textLayer" class="text-layer"></div>
+            <span id="tapHighlight" class="tap-highlight"></span>
+          </div>
+        </div>
+
+        <div id="loading" class="loading">
+          <div class="loading-mark">Aa</div>
+          <strong id="loadingTitle">正在打开词汇表</strong>
+          <span id="loadingSubtitle">首次打开可能需要几秒钟</span>
+          <div class="loading-track"><i id="loadingBar"></i></div>
+        </div>
+
+        <div id="hint" class="tap-hint">
+          <span class="hint-icon">◎</span>
+          <span>轻点任意英文单词即可朗读</span>
+        </div>
+
+        <button id="showControlsButton" class="show-controls" type="button" aria-label="显示底部控制栏">⌃</button>
+      </section>
+
+      <footer id="bottomBar" class="bottom-bar">
+        <button id="previousButton" class="page-button" type="button" aria-label="上一页">
+          <span aria-hidden="true">←</span>
+          <small>上一页</small>
+        </button>
+        <div class="page-status">
+          <div class="progress-track"><i id="progressBar"></i></div>
+          <span id="pageStatusText">第 1 页</span>
+        </div>
+        <button id="nextButton" class="page-button" type="button" aria-label="下一页">
+          <span aria-hidden="true">→</span>
+          <small>下一页</small>
+        </button>
+      </footer>
+
+      <section id="settingsSheet" class="settings-sheet" aria-hidden="true">
+        <div class="sheet-backdrop" data-close-settings></div>
+        <div class="sheet-card">
+          <div class="sheet-heading">
+            <div>
+              <p>READING VOICE</p>
+              <h2>点读声音</h2>
+            </div>
+            <button class="close-settings" type="button" data-close-settings aria-label="关闭">×</button>
+          </div>
+          <label class="setting-row" for="voiceSelect">
+            <span>英文声音</span>
+            <select id="voiceSelect"></select>
+          </label>
+          <label class="setting-row" for="rateRange">
+            <span>朗读速度 <b id="rateValue">0.88×</b></span>
+            <input id="rateRange" type="range" min="0.60" max="1.10" step="0.02" value="0.88">
+          </label>
+          <div class="setting-note">
+            点读会优先选择 iPad 开放给 Safari 的 Siri、增强版或高质量英文声音。若列表没有 Siri，请选择带 ★ 的增强声音；仍没有声音时，请检查侧边静音开关、媒体音量和 Safari 播放权限。
+          </div>
+        </div>
+      </section>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      <div id="wordAnnouncement" class="sr-only" aria-live="polite"></div>
+    </main>
+
+    <script src="vendor/pdf.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

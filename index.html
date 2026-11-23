@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f1b93b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>英语单词点读机</title>
+    <style>
+      :root {
+        --ink: #17263a;
+        --muted: #617086;
+        --paper: #fffdf7;
+        --line: rgba(23, 38, 58, 0.12);
+        --yellow: #f1b93b;
+        --coral: #e66f50;
+        --blue: #65aeb0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+        margin: 0;
+        padding:
+          max(24px, env(safe-area-inset-top))
+          max(20px, env(safe-area-inset-right))
+          max(24px, env(safe-area-inset-bottom))
+          max(20px, env(safe-area-inset-left));
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 4%, rgba(255, 255, 255, 0.95), transparent 28%),
+          radial-gradient(circle at 92% 12%, rgba(101, 174, 176, 0.24), transparent 30%),
+          linear-gradient(135deg, #eee7d8, #fffaf0 52%, #e9e4d8);
+        font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      }
+
+      main {
+        width: min(980px, 100%);
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--coral);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(40px, 8vw, 76px);
+        letter-spacing: -0.05em;
+        line-height: 1;
+      }
+
+      .intro {
+        max-width: 660px;
+        margin: 18px 0 30px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .books {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+      }
+
+      .book {
+        position: relative;
+        min-height: 210px;
+        padding: 24px 22px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 24px;
+        background: rgba(255, 253, 247, 0.84);
+        box-shadow: 0 18px 45px rgba(48, 39, 22, 0.12);
+        color: inherit;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .book:active {
+        transform: scale(0.98);
+      }
+
+      .book::after {
+        position: absolute;
+        right: -30px;
+        bottom: -55px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: var(--accent);
+        content: "";
+        opacity: 0.16;
+      }
+
+      .book.basic {
+        --accent: var(--yellow);
+      }
+
+      .book.core {
+        --accent: var(--coral);
+      }
+
+      .book.high {
+        --accent: var(--blue);
+      }
+
+      .badge {
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--accent);
+        color: white;
+        font-family: Georgia, serif;
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      .book h2 {
+        margin: 22px 0 7px;
+        font-size: 23px;
+      }
+
+      .book p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.65;
+      }
+
+      .open {
+        display: inline-block;
+        margin-top: 22px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      footer {
+        margin-top: 28px;
+        color: var(--muted);
+        font-size: 11px;
+        text-align: center;
+      }
+
+      @media (max-width: 760px) {
+        .books {
+          grid-template-columns: 1fr;
+        }
+
+        .book {
+          min-height: 170px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">ENGLISH VOCABULARY READER</p>
+      <h1>英语单词点读机</h1>
+      <p class="intro">
+        选择一本词汇表，点击页面上的英文单词即可朗读。每个点读机都可以单独添加到 iPad 主屏幕，首次联网打开后会缓存页面和 PDF。
+      </p>
+
+      <section class="books" aria-label="词汇点读机列表">
+        <a class="book basic" href="./basic/">
+          <span class="badge">基</span>
+          <h2>基础词汇</h2>
+          <p>完整保留原始 PDF 版式，点击英文单词直接朗读。</p>
+          <span class="open">打开点读机 →</span>
+        </a>
+
+        <a class="book core" href="./core/">
+          <span class="badge">核</span>
+          <h2>核心词汇</h2>
+          <p>独立主屏幕书签，适合集中复习核心词条。</p>
+          <span class="open">打开点读机 →</span>
+        </a>
+
+        <a class="book high" href="./high/">
+          <span class="badge">高</span>
+          <h2>高频词汇</h2>
+          <p>蓝绿色闪电图标，与另外两套书签清楚区分。</p>
+          <span class="open">打开点读机 →</span>
+        </a>
+      </section>
+
+      <footer>点击英文单词朗读 · 支持系统英文语音与离线缓存</footer>
+    </main>
+  </body>
+</html>
